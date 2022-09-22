@@ -10,6 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity';
 import { User } from 'src/auth/user.entity';
+import { FindOptionsWhere } from 'typeorm';
 
 @Injectable()
 export class BoardsService {
@@ -45,13 +46,19 @@ export class BoardsService {
   async deleteBoard(id: number, user: User): Promise<void> {
     const result = await this.boardRepository.delete({ id, user });
 
-    console.log(result);
+    // const query = this.boardRepository
+    //   .createQueryBuilder()
+    //   .delete()
+    //   .from(Board)
+    //   .where('id = :id', { id })
+    //   .andWhere('userId = :user', { user: user.id })
+    //   .execute();
 
-    if (result.affected === 0) {
-      throw new NotFoundException(
-        `Can't find Board with id ${id} || No Authorization`,
-      );
-    }
+    // if (result.affected === 0) {
+    //   throw new NotFoundException(
+    //     `Can't find Board with id ${id} || No Authorization`,
+    //   );
+    // }
 
     // return this.boardRepository.deleteBoard(id, user);
   }
