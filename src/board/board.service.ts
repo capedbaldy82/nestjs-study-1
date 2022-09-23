@@ -54,13 +54,11 @@ export class BoardsService {
     //   .andWhere('userId = :user', { user: user.id })
     //   .execute();
 
-    // if (result.affected === 0) {
-    //   throw new NotFoundException(
-    //     `Can't find Board with id ${id} || No Authorization`,
-    //   );
-    // }
-
-    // return this.boardRepository.deleteBoard(id, user);
+    if (result.affected === 0) {
+      throw new NotFoundException(
+        `Can't find Board with id ${id} || No Authorization`,
+      );
+    }
   }
 
   async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
